@@ -1,6 +1,10 @@
-# python-tooling-plugins
+# Python Tooling Plugins for Claude Code
 
-Marketplace of Claude Code plugins.
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Marketplace version](https://img.shields.io/badge/marketplace-v0.2.1-informational.svg)](.claude-plugin/marketplace.json)
+[![Plugins](https://img.shields.io/badge/plugins-7-brightgreen.svg)](#plugins)
+
+Claude Code plugins for Python tooling: type checking, formatting, linting, packaging, and testing.
 
 Repo: https://github.com/boo1-boo1/python-tooling-plugins
 
