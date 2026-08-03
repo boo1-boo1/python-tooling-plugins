@@ -12,7 +12,7 @@ Or just ask Claude to lint Python code — the skill auto-triggers.
 
 ## Lint-on-edit hook
 
-Ships a `PostToolUse` hook (`hooks/hooks.json` → `scripts/lint.sh`) that fires after every `Write`/`Edit` on a `.py` file:
+Ships a `PostToolUse` hook (`hooks/hooks.json` → `scripts/lint.py`) that fires after every `Write`/`Edit` on a `.py` file:
 
 - Skips if `ruff` isn't installed, or the project has no `[tool.ruff]` in `pyproject.toml`, no `ruff.toml`/`.ruff.toml`, and no `astral-sh/ruff` entry in `.pre-commit-config.yaml`.
 - Runs `ruff check --quiet` on just the edited file (report only — never mutates the file; `--fix` silently strips things like unused imports mid-edit).

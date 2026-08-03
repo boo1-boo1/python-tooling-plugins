@@ -61,14 +61,14 @@
       "name": "black-formatter",
       "source": "./plugins/black-formatter",
       "description": "Python code formatting with Black - the uncompromising code formatter, plus a hook that auto-formats on edit",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "category": "development"
     },
     {
       "name": "ruff-linter",
       "source": "./plugins/ruff-linter",
       "description": "Python linting and code quality checks with Ruff - an extremely fast Python linter, plus a hook that lints on edit",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "category": "development"
     },
     {
