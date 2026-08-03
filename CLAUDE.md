@@ -78,4 +78,4 @@ A plugin-internal change bumps only that plugin's version, never the marketplace
 
 Reordering the `plugins` array (e.g. grouping by function) needs no bump — plugins resolve by name, not position, so it's purely cosmetic.
 
-No git tags — Claude Code consumes the marketplace via `/plugin marketplace add` reading HEAD, not tags. Version fields are the source of truth; a git tag would be a purely cosmetic marker and is not maintained.
+Git tags: cosmetic only — Claude Code consumes the marketplace via `/plugin marketplace add` reading HEAD, not tags. Version fields remain the source of truth. Tag each marketplace `metadata.version` bump as `v<version>` (e.g. `v0.2.1`) on the commit that introduces it, for human/browsing reference.
