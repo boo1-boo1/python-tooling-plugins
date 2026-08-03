@@ -5,8 +5,8 @@
     "email": "38583719+boo1-boo1@users.noreply.github.com"
   },
   "metadata": {
-    "description": "Marketplace of Claude Code plugins.",
-    "version": "0.2.0"
+    "description": "Claude Code plugins for Python tooling: type checking, formatting, linting, packaging, and testing.",
+    "version": "0.2.1"
   },
   "plugins": [
     {
