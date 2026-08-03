@@ -79,3 +79,7 @@ A plugin-internal change bumps only that plugin's version, never the marketplace
 Reordering the `plugins` array (e.g. grouping by function) needs no bump — plugins resolve by name, not position, so it's purely cosmetic.
 
 Git tags: cosmetic only — Claude Code consumes the marketplace via `/plugin marketplace add` reading HEAD, not tags. Version fields remain the source of truth. Tag each marketplace `metadata.version` bump as `v<version>` (e.g. `v0.2.1`) on the commit that introduces it, for human/browsing reference.
+
+On each marketplace version tag, also cut a GitHub Release (`gh release create v<version>`) summarizing the commits since the previous tag — purely for discoverability (Releases tab), not consumed by Claude Code.
+
+README carries badges for license, marketplace version, and plugin count at the top — bump the version badge and plugin-count badge alongside any marketplace version/plugin-count change.
