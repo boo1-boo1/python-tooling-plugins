@@ -34,8 +34,8 @@ Then install a plugin:
 
 | Plugin | Description | Command |
 | --- | --- | --- |
-| [basedpyright-lsp](plugins/basedpyright-lsp) | Python language server (basedpyright) for type checking and code intelligence (LSP: `basedpyright-langserver`) | `/python-typecheck [path]` |
-| [pyright-lsp](plugins/pyright-lsp) | Python language server (pyright) for type checking and code intelligence (LSP: `pyright-langserver`) | `/pyright-typecheck [path]` |
+| [basedpyright-lsp](plugins/basedpyright-lsp) | Python language server (basedpyright) for type checking and code intelligence (LSP: `basedpyright-langserver`) | — |
+| [pyright-lsp](plugins/pyright-lsp) | Python language server (pyright) for type checking and code intelligence (LSP: `pyright-langserver`) | — |
 
 **Formatting & linting**
 

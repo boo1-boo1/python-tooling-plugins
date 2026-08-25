@@ -4,17 +4,9 @@ Python language server (pyright) for Claude Code, providing static type checking
 
 pyright is Microsoft's static type checker for Python. Use `basedpyright-lsp` instead if the project has adopted basedpyright (stricter defaults); this plugin is the fallback for projects standardized on plain pyright.
 
-## Usage
-
-```
-/pyright-typecheck [path]
-```
-
-Or just ask Claude to type check Python code — the skill auto-triggers.
-
 ## LSP
 
-Also registers `pyright-langserver --stdio` as a language server for `.py`/`.pyi` files, giving live type checking/code-intelligence via pyright's built-in LSP.
+Registers `pyright-langserver --stdio` as a language server for `.py`/`.pyi` files, giving live type checking/code-intelligence via pyright's built-in LSP.
 
 ## Supported Extensions
 `.py`, `.pyi`

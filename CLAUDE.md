@@ -27,9 +27,9 @@ plugins/
     LICENSE
 ```
 
-All current plugins (`basedpyright-lsp`, `pyright-lsp`, `black-formatter`, `ruff-linter`, `uv`, `poetry`, `pytest`) are **skill-based**: each ships a `plugin.json` + `skills/<name>/SKILL.md` + `commands/<name>.md`. The skill triggers when Claude detects relevant Python tooling config (e.g. `[tool.black]`/`[tool.ruff]`/`[tool.basedpyright]`/`[tool.pyright]`/`[tool.uv]`/`[tool.poetry]`/pytest config in `pyproject.toml`) or the user asks directly. `basedpyright-lsp` and `pyright-lsp` additionally keep an `lspServers` block inline in `marketplace.json` (no `plugin.json` needed for that block alone).
+`basedpyright-lsp` and `pyright-lsp` are **LSP-only**: no `plugin.json`, just an `lspServers` block in `marketplace.json`. The rest (`black-formatter`, `ruff-linter`, `uv`, `poetry`, `pytest`) are **skill-based**: each ships a `plugin.json` + `skills/<name>/SKILL.md` + `commands/<name>.md`. The skill triggers when Claude detects relevant Python tooling config (e.g. `[tool.black]`/`[tool.ruff]`/`[tool.uv]`/`[tool.poetry]`/pytest config in `pyproject.toml`) or the user asks directly.
 
-A plugin can also be **LSP-only**: no `plugin.json`, just an `lspServers` block in `marketplace.json` mapping file extensions to a language server command. It becomes hybrid the moment it needs a non-LSP command (e.g. a CLI-driven `/python-typecheck`, as `basedpyright-lsp` and `pyright-lsp` did): add `plugin.json` + skill + command to it same as skill-based plugins, keep the `lspServers` block in marketplace.json unchanged. Also add `"strict": false` to that plugin's marketplace entry — once it has both plugin.json-declared components (skill/command) and marketplace-entry-declared components (`lspServers`), Claude Code treats that as conflicting manifests and errors without it.
+A plugin can also be **LSP-only**: no `plugin.json`, just an `lspServers` block in `marketplace.json` mapping file extensions to a language server command (`basedpyright-lsp`, `pyright-lsp` are this shape). It becomes hybrid the moment it needs a non-LSP command (e.g. a CLI-driven `/python-typecheck`): add `plugin.json` + skill + command to it same as skill-based plugins, keep the `lspServers` block in marketplace.json unchanged, and add `"strict": false` to that plugin's marketplace entry — once it has both plugin.json-declared components (skill/command) and marketplace-entry-declared components (`lspServers`), Claude Code treats that as conflicting manifests and errors without it. Reverting to LSP-only means removing `plugin.json`/`skills/`/`commands/` and dropping `strict` again.
 
 `lspServers.args` isn't uniform — check the binary's own docs before assuming stdio is default (e.g. `basedpyright-langserver`/`pyright-langserver` need explicit `--stdio`).
 
@@ -49,6 +49,7 @@ A skill for a packaging/dependency manager (`uv`, `poetry`) can include a "No py
 3. For LSP-only plugins: skip `plugin.json`; add the `lspServers` block directly under the plugin's marketplace.json entry.
    If a plugin later goes hybrid (gains a skill/command alongside its `lspServers` block), also set `"strict": false` on its marketplace entry — see Structure section above.
 4. Update the plugin table in root `README.md`. Also add the `/plugin install <name>` line to the Usage section's install list.
+   Plugins with no command (LSP-only) show `—` in the Command column.
 5. Keep `version` fields in sync between `plugin.json` and the marketplace entry.
 6. Add `LICENSE` and `README.md` to the new plugin dir (see existing plugins for pattern).
 
