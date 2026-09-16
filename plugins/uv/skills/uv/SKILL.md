@@ -31,7 +31,7 @@ If uv is invoked (or the user asks to add/install a dependency) in a directory w
 uv init
 ```
 
-After init, ask the user whether they also want recommended baseline config added for basedpyright, ruff, and black (see the basedpyright-lsp, ruff-linter, black-formatter skills for the exact blocks) — don't write any of it unasked.
+After init, ask the user whether they also want recommended baseline config added for basedpyright, ruff, and black (see the basedpyright-lsp README and the ruff-linter, black-formatter skills for the exact blocks) — don't write any of it unasked.
 
 ## Core Commands
 

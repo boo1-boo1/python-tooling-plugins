@@ -11,7 +11,7 @@ Formats Python code using Black, the uncompromising code formatter.
 ## When This Skill Applies
 
 - User asks to format Python code or run Black
-- After writing/editing Python files in a repo with a `pyproject.toml` `[tool.black]` section, `.black` config, or existing Black usage (check `pyproject.toml`, CI config, pre-commit config)
+- After writing/editing Python files in a repo with a `pyproject.toml` `[tool.black]` section or existing Black usage (check `pyproject.toml`, CI config, pre-commit config)
 - User asks to fix inconsistent formatting in `.py` files
 
 ## Detecting Black Usage

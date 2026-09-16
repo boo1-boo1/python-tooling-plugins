@@ -12,7 +12,7 @@
     {
       "name": "basedpyright-lsp",
       "description": "Python language server (basedpyright) for type checking and code intelligence",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "author": {
         "name": "boo1-boo1",
         "email": "38583719+boo1-boo1@users.noreply.github.com"
@@ -59,28 +59,28 @@
       "name": "black-formatter",
       "source": "./plugins/black-formatter",
       "description": "Python code formatting with Black - the uncompromising code formatter, plus a hook that auto-formats on edit",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "category": "development"
     },
     {
       "name": "ruff-linter",
       "source": "./plugins/ruff-linter",
       "description": "Python linting and code quality checks with Ruff - an extremely fast Python linter, plus a hook that lints on edit",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "category": "development"
     },
     {
       "name": "uv",
       "source": "./plugins/uv",
       "description": "Python packaging and dependency management with uv - Astral's fast package/project manager",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "category": "development"
     },
     {
       "name": "poetry",
       "source": "./plugins/poetry",
       "description": "Python packaging and dependency management with Poetry",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "category": "development"
     },
     {

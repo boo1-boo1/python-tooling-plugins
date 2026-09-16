@@ -11,7 +11,7 @@ def is_black_project(project_dir):
     pyproject = os.path.join(project_dir, "pyproject.toml")
     try:
         with open(pyproject) as f:
-            if re.search(r"^\[tool\.black\]", f.read(), re.MULTILINE):
+            if re.search(r"^\[tool\.black(\.|\])", f.read(), re.MULTILINE):
                 return True
     except OSError:
         pass
@@ -28,10 +28,13 @@ def is_black_project(project_dir):
 
 
 def main():
-    hook_input = json.load(sys.stdin)
+    try:
+        hook_input = json.load(sys.stdin)
+    except json.JSONDecodeError:
+        return
     file_path = hook_input.get("tool_input", {}).get("file_path", "")
 
-    if not file_path.endswith(".py") or not os.path.isfile(file_path):
+    if not file_path.endswith((".py", ".pyi")) or not os.path.isfile(file_path):
         return
 
     project_dir = os.environ.get("CLAUDE_PROJECT_DIR", ".")
@@ -42,7 +45,16 @@ def main():
     if not is_black_project(project_dir):
         return
 
-    subprocess.run(["black", "--quiet", file_path], cwd=project_dir)
+    result = subprocess.run(
+        ["black", "--quiet", file_path],
+        cwd=project_dir,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        sys.stderr.write(result.stdout)
+        sys.stderr.write(result.stderr)
+        sys.exit(2)
 
 
 if __name__ == "__main__":

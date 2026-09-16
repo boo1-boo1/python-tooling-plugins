@@ -29,7 +29,7 @@ plugins/
 
 `basedpyright-lsp` and `pyright-lsp` are **LSP-only**: no `plugin.json`, just an `lspServers` block in `marketplace.json`. The rest (`black-formatter`, `ruff-linter`, `uv`, `poetry`, `pytest`) are **skill-based**: each ships a `plugin.json` + `skills/<name>/SKILL.md` + `commands/<name>.md`. The skill triggers when Claude detects relevant Python tooling config (e.g. `[tool.black]`/`[tool.ruff]`/`[tool.uv]`/`[tool.poetry]`/pytest config in `pyproject.toml`) or the user asks directly.
 
-A plugin can also be **LSP-only**: no `plugin.json`, just an `lspServers` block in `marketplace.json` mapping file extensions to a language server command (`basedpyright-lsp`, `pyright-lsp` are this shape). It becomes hybrid the moment it needs a non-LSP command (e.g. a CLI-driven `/python-typecheck`): add `plugin.json` + skill + command to it same as skill-based plugins, keep the `lspServers` block in marketplace.json unchanged, and add `"strict": false` to that plugin's marketplace entry — once it has both plugin.json-declared components (skill/command) and marketplace-entry-declared components (`lspServers`), Claude Code treats that as conflicting manifests and errors without it. Reverting to LSP-only means removing `plugin.json`/`skills/`/`commands/` and dropping `strict` again.
+A plugin can also be **LSP-only**: no `plugin.json`, just an `lspServers` block in `marketplace.json` mapping file extensions to a language server command (`basedpyright-lsp`, `pyright-lsp` are this shape). It becomes hybrid the moment it needs a non-LSP command (e.g. a CLI-driven `/python-typecheck`): add `plugin.json` + skill + command to it same as skill-based plugins and keep the `lspServers` block in marketplace.json unchanged — with the default `strict: true`, plugin.json-declared components (skill/command) and marketplace-entry-declared components (`lspServers`) are merged, so no `strict` field is needed. Never set `strict: false` on it: that makes the marketplace entry the plugin's entire definition, so a `plugin.json` declaring components becomes a conflicting-manifest load failure. Reverting to LSP-only means removing `plugin.json`/`skills/`/`commands/`.
 
 `lspServers.args` isn't uniform — check the binary's own docs before assuming stdio is default (e.g. `basedpyright-langserver`/`pyright-langserver` need explicit `--stdio`).
 
@@ -37,7 +37,7 @@ A plugin can also ship a **hook** (`hooks/hooks.json` in plugin root + optional 
 
 Plugins are grouped by function in `marketplace.json` and the README table: type checking → formatting/linting → packaging/dependency management → testing. Keep new plugins slotted into the matching group rather than appended at the end.
 
-A skill for a formatter/linter/type-checker can include a "Recommended Configuration" section: a baseline config block to *offer* (never auto-write) when the tool is used but has no config yet in `pyproject.toml`. Confirm with the user before writing it. See `ruff-linter`, `black-formatter`, `basedpyright-lsp` SKILL.md for the pattern.
+A skill for a formatter/linter/type-checker can include a "Recommended Configuration" section: a baseline config block to *offer* (never auto-write) when the tool is used but has no config yet in `pyproject.toml`. Confirm with the user before writing it. See the `ruff-linter` and `black-formatter` SKILL.md for the pattern, and the `basedpyright-lsp` README.md (LSP-only, no skill) for the same idea.
 
 A skill for a packaging/dependency manager (`uv`, `poetry`) can include a "No pyproject.toml Found" section: if invoked with no `pyproject.toml` present, offer to init a new project (`uv init`/`poetry init`) first, then ask whether to also add the recommended config from the formatter/linter/type-checker skills above. Confirm before writing anything. See `uv`, `poetry` SKILL.md for the pattern.
 
@@ -47,7 +47,7 @@ A skill for a packaging/dependency manager (`uv`, `poetry`) can include a "No py
 2. For skill-based plugins: create `plugins/<name>/.claude-plugin/plugin.json` and `plugins/<name>/skills/<name>/SKILL.md`. SKILL.md frontmatter description should name the exact trigger phrases (see existing skills for the pattern: "when user asks to X", "when editing Y files in a project that uses Z").
    Also add `plugins/<name>/commands/<name>.md` — a slash command (frontmatter: `description`, `argument-hint`) whose body tells Claude to invoke the skill, so users can trigger explicitly instead of relying on auto-detection.
 3. For LSP-only plugins: skip `plugin.json`; add the `lspServers` block directly under the plugin's marketplace.json entry.
-   If a plugin later goes hybrid (gains a skill/command alongside its `lspServers` block), also set `"strict": false` on its marketplace entry — see Structure section above.
+   If a plugin later goes hybrid (gains a skill/command alongside its `lspServers` block), no `strict` field is needed — see Structure section above.
 4. Update the plugin table in root `README.md`. Also add the `/plugin install <name>` line to the Usage section's install list.
    Plugins with no command (LSP-only) show `—` in the Command column.
 5. Keep `version` fields in sync between `plugin.json` and the marketplace entry.

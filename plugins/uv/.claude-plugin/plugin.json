@@ -1,7 +1,7 @@
 {
   "name": "uv",
   "description": "Python packaging and dependency management with uv - Astral's fast package/project manager",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "boo1-boo1",
     "email": "38583719+boo1-boo1@users.noreply.github.com"
